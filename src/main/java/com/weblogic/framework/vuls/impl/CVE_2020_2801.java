@@ -20,11 +20,14 @@ package com.weblogic.framework.vuls.impl;
  * Desc:
  * <p>
  *     CVE-2020-2801
- *     
+ *
  * </p>
  * Date: 2020/4/19 21:50
  *
  * @version 1.0.0
  */
 public class CVE_2020_2801 {
+    public static void main(String[] args) {
+        //
+    }
 }
