@@ -1,6 +1,17 @@
 # weblogic-tools
 weblogic-tools
 
+拥有人员名单：
+
+| id | 版本  | 时间 |
+|:--------|:-------|------|
+|Skay|weblogic-framework-0.1.0|2020-04-19|
+|sky@iiusky|weblogic-framework-0.1.0|2020-04-19|
+|R3start|weblogic-framework-0.1.0|2020-04-19|
+|Forever_yang|weblogic-framework-0.1.0|2020-04-19|
+|l1nk3r|weblogic-framework-0.1.0|2020-04-19|
+|r4v3n|weblogic-framework-0.1.0|2020-04-19|
+
 启动 JNDI 服务
 
 ```
