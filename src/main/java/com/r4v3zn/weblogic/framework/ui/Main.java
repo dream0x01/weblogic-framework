@@ -21,6 +21,7 @@ import com.intellij.uiDesigner.core.Spacer;
 import com.r4v3zn.weblogic.framework.enmus.CallEnum;
 import com.r4v3zn.weblogic.framework.entity.MyException;
 import com.r4v3zn.weblogic.framework.entity.VulCheckParam;
+import com.r4v3zn.weblogic.framework.filter.DeserializationSecurityManager;
 import com.r4v3zn.weblogic.framework.utils.CallUtils;
 import com.r4v3zn.weblogic.framework.utils.StringUtils;
 import com.r4v3zn.weblogic.framework.utils.VulUtils;
@@ -99,6 +100,7 @@ public class Main extends JFrame {
 
     public Main(String title) {
         super(title);
+        System.setSecurityManager(new DeserializationSecurityManager());
         this.setContentPane(mainPanel);
         // init vul name
         String[] vulNames = VulTest.Utils.getVulNames();
@@ -263,7 +265,7 @@ public class Main extends JFrame {
             serverInfoText.append(e.getMessage() + "\n");
             log.error(e.getMessage() + "");
         }
-        if (iiopFlag == false && t3Flag == false) {
+        if (!iiopFlag && !t3Flag) {
             serverInfoText.append(host + " 漏洞不存在!\n");
             log.error(host + " 漏洞不存在!");
             return;
@@ -299,7 +301,6 @@ public class Main extends JFrame {
             vulCheckParam.setCall(CallEnum.FILE_OUTPUT_STREAM);
         }
         validateVul(host, vulCheckParam, vulClasses, vulName);
-//        validateVul(host, javascriptUrl, ldapUrl, charsetName, callName, vulClasses, vulName, protocol);
         serverInfoText.append(host + " 漏洞验证完毕!");
         log.info(host + " 漏洞验证完毕!");
     }
@@ -463,7 +464,7 @@ public class Main extends JFrame {
         serverInfoText = new JTextArea();
         serverInfoText.setEditable(false);
         serverInfoText.setLineWrap(true);
-        serverInfoText.setText("\n本工具仅适用于安全技术研究，严禁使用本工具发起网络黑客攻击，造成的法律后果，请使用者自负。\n\n------------------------------------------------------\n\n\n更新日志：\n\n2020-06-25\n\n  1）新增 T3、IIOP 协议开放检测\n\n  2）优化 CVE-2020-2551 回显方案\n\n2020-04-01\n\n  1) 修改 weblogic 文件 13 个版本，支持 NAT 网络.\n");
+        serverInfoText.setText("\n本工具仅适用于安全技术研究，严禁使用本工具发起网络黑客攻击，造成的法律后果，请使用者自负。\n\n------------------------------------------------------\n\n\n更新日志：\n\n2023-08-21\n\n  1）修复序列化安全漏洞\n\n2020-06-25\n\n  1）新增 T3、IIOP 协议开放检测\n\n  2）优化 CVE-2020-2551 回显方案\n\n2020-04-01\n\n  1) 修改 weblogic 文件 13 个版本，支持 NAT 网络.\n");
         serverInfoScrollPane.setViewportView(serverInfoText);
         cmdExecutePanel = new JPanel();
         cmdExecutePanel.setLayout(new GridLayoutManager(2, 6, new Insets(0, 0, 0, 0), -1, -1));

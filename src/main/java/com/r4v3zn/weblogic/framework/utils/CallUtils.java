@@ -20,6 +20,7 @@ import com.r4v3zn.weblogic.framework.call.Call;
 import com.r4v3zn.weblogic.framework.entity.MyException;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.LoaderClassPath;
 import org.reflections.Reflections;
 import weblogic.cluster.migration.RemoteMigratableServiceCoordinator;
 import weblogic.cluster.singleton.ClusterMasterRemote;
