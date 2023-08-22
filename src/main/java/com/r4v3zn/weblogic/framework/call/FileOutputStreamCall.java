@@ -65,12 +65,4 @@ public class FileOutputStreamCall implements Call {
         }
         return contextPojo;
     }
-
-    public static void main(String[] args) {
-        logger.info("aa");
-        logger.error("aa");
-        logger.debug("aa");
-        logger.warn("aa");
-        logger.info("aa");
-    }
 }
